@@ -16,7 +16,7 @@ std::vector<std::vector<float>> generate_matrix(int rows, int cols){
     std::uniform_real_distribution<> dis(0, 1);
     for (int i = 0; i < rows; i++){
         std::generate(matrix[i].begin(), matrix[i].end(), [&](){return dis(gen);});
-    }
+    } 
     return matrix;
 }
 
