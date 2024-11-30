@@ -31,9 +31,7 @@ std::vector<float> jacobi(std::vector<std::vector<float>> A, std::vector<float> 
         if (residual[iter] < tol){
             break;
         }
-    }
-    std::cout << "Total iterations: " << final_iter << std::endl;
-    
+    }    
     std::cout << "Total iterations: " << final_iter << std::endl;
     //show last 1 residuals
     for (int i = final_iter - 1; i < final_iter; i++){
@@ -68,8 +66,6 @@ std::vector<float> jacobi_cal_omp(std::vector<std::vector<float>> A, std::vector
     }
     return x;
 }
-
-
 
 
 std::vector<float> jacobi_cal_omp_res_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol) {

@@ -9,6 +9,8 @@
 #include <vector>
 #include "gen_random.h"
 #include "residual.h"
+#include "gauss.h"
+#include "coloring.h"
 
 // Gauss-Seidel method
 std::vector<float> gauss_seidel(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
@@ -40,29 +42,29 @@ std::vector<float> gauss_seidel(std::vector<std::vector<float>> A, std::vector<f
     return x;
 }
 
-// // Gauss-Seidel method with OpenMP
-// std::vector<float> gauss_seidel_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
-//     int n = A.size();
-//     std::vector<float> x(n, 0);
-//     std::vector<float> x_new(n, 0);
-//     std::vector<float> residual(max_iter, 0);
-//     for (int iter = 0; iter < max_iter; iter++){
-//         #pragma omp parallel for
-//         for (int i = 0; i < n; i++){
-//             float sum = 0;
-//             for (int j = 0; j < n; j++){
-//                 if (j != i){
-//                     sum += A[i][j] * x[j];
-//                 }
-//             }
-//             x_new[i] = (b[i] - sum) / A[i][i];
-//         }
-//         x = x_new;
-//         residual[iter] = get_residual(A, x, b);
-//         if (residual[iter] < tol){
-//             break;
-//         }
-//     }
-//     return x;
-// }
+// Gauss-Seidel method with OpenMP
+std::vector<float> gauss_seidel_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
+    int n = A.size();
+    std::vector<float> x(n, 0);
+    std::vector<float> x_new(n, 0);
+    std::vector<float> residual(max_iter, 0);
+    for (int iter = 0; iter < max_iter; iter++){
+        #pragma omp parallel for
+        for (int i = 0; i < n; i++){
+            float sum = 0;
+            for (int j = 0; j < n; j++){
+                if (j != i){
+                    sum += A[i][j] * x[j];
+                }
+            }
+            x_new[i] = (b[i] - sum) / A[i][i];
+        }
+        x = x_new;
+        residual[iter] = get_residual(A, x, b);
+        if (residual[iter] < tol){
+            break;
+        }
+    }
+    return x;
+}
 

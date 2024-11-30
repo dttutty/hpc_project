@@ -72,6 +72,25 @@ std::vector<std::vector<float>> generate_matrix(int n, float sparse) {
     return matrix;
 }
 
+// //生成一个对称正定矩阵
+// std::vector<std::vector<float>> generate_symmetric_positive_matrix(int n, float sparse){
+//     std::vector<std::vector<float>> matrix(n, std::vector<float>(n, 0.0f));
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//     std::uniform_real_distribution<> dis(0.1, 1.0);
+//     for (int i = 0; i < n; i++){
+//         for (int j = i; j < n; j++){
+//             if (i == j){
+//                 matrix[i][j] = dis(gen) * 10.0f;
+//             }else{
+//                 matrix[i][j] = dis(gen) < sparse ? 0.0f : dis(gen);
+//                 matrix[j][i] = matrix[i][j];
+//             }
+//         }
+//     }
+//     return matrix;
+// }
+
 // Generate a random vector for right-hand side b
 std::vector<float> generate_vector(int n) {
     std::vector<float> b(n);
