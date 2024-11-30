@@ -63,51 +63,51 @@ std::array<std::vector<int>, 2> fratarcangeli(const std::vector<std::vector<floa
 }
 
 
-std::array<std::vector<int>, 2> randomized_coloring(const std::vector<std::vector<float>>& A) {
-    int n = A.size();
+// std::array<std::vector<int>, 2> randomized_coloring(const std::vector<std::vector<float>>& A) {
+//     int n = A.size();
 
-    std::set<int> neighbours[n];
-    std::vector<int> node_colors(n, -1);
-    std::vector<int> next_color(n, -1);
-    std::vector<std::set<int>> node_palettes(n);
-    std::set<int> U;
+//     std::set<int> neighbours[n];
+//     std::vector<int> node_colors(n, -1);
+//     std::vector<int> next_color(n, -1);
+//     std::vector<std::set<int>> node_palettes(n);
+//     std::set<int> U;
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i != j && fabs(A[i][j]) > EPS) {
-                // add j to the neighbours of i if there is an edge between i and j
-                if (neighbours[i].find(j) == neighbours[i].end()) {
-					neighbours[i].insert(j);
-				}
-                // add i to the neighbours of j if there is an edge between i and j
-				if (neighbours[j].find(i) == neighbours[j].end()) {
-					neighbours[j].insert(i);
-				}
-            }
-        }
-    }
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             if (i != j && fabs(A[i][j]) > EPS) {
+//                 // add j to the neighbours of i if there is an edge between i and j
+//                 if (neighbours[i].find(j) == neighbours[i].end()) {
+// 					neighbours[i].insert(j);
+// 				}
+//                 // add i to the neighbours of j if there is an edge between i and j
+// 				if (neighbours[j].find(i) == neighbours[j].end()) {
+// 					neighbours[j].insert(i);
+// 				}
+//             }
+//         }
+//     }
 
-    // find the maximum degree of the graph
-    int max_degree = 0;
-    for (int i = 0; i < n; i++) {
-        max_degree = std::max(max_degree, (int)neighbours[i].size());
-    }
+//     // find the maximum degree of the graph
+//     int max_degree = 0;
+//     for (int i = 0; i < n; i++) {
+//         max_degree = std::max(max_degree, (int)neighbours[i].size());
+//     }
 
-    int max_color = int((float)max_degree / SHRINKING_FACTOR);
-    if (max_color <= 0) {
-        max_color = 1;
-    }
-    // max_color = 2;
+//     int max_color = int((float)max_degree / SHRINKING_FACTOR);
+//     if (max_color <= 0) {
+//         max_color = 1;
+//     }
+//     // max_color = 2;
 
-    for (int iv = 0; iv< n;++iv){
-        for (int ic = 0; ic < max_color; ++ic){
-            node_palettes[iv].insert(ic);
-        }
-        next_color[iv] = max_color;
-    }
+//     for (int iv = 0; iv< n;++iv){
+//         for (int ic = 0; ic < max_color; ++ic){
+//             node_palettes[iv].insert(ic);
+//         }
+//         next_color[iv] = max_color;
+//     }
 
     
 
 
 
-}
+// }

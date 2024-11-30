@@ -33,13 +33,13 @@ int main(int argc, char* argv[]){
     auto b = generate_vector(n);
 
     std::cout << "======================Jacobi======================" << std::endl;
-    measure_time(jacobi, A, b, max_iter, tol, "Jacobi method");
-    measure_time(jacobi_cal_omp, A, b, max_iter, tol, "Jacobi method with cal_omp");
-    measure_time(jacobi_cal_omp_res_omp, A, b, max_iter, tol, "Jacobi method with cal_omp, res_omp");
+    // measure_time(jacobi, A, b, max_iter, tol, "Jacobi method");
+    // measure_time(jacobi_cal_omp, A, b, max_iter, tol, "Jacobi method with cal_omp");
+    // measure_time(jacobi_cal_omp_res_omp, A, b, max_iter, tol, "Jacobi method with cal_omp, res_omp");
 
     std::cout << "===================Gauss-Seidel===================" << std::endl;
     measure_time(gauss_seidel, A, b, max_iter, tol, "Gauss-Seidel method");
-    measure_time(gauss_seidel_omp, A, b, max_iter, tol, "Gauss-Seidel omp");
+    // measure_time(gauss_seidel_omp, A, b, max_iter, tol, "Gauss-Seidel omp");
 
     return 0;
 }
