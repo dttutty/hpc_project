@@ -1,12 +1,10 @@
 #include <iostream>
-#include <cmath>
 #include <chrono>
 
 # include<omp.h>
 #include <vector>
 #include <random>
 #include <algorithm>
-#include <vector>
 
 // generate a random matrix
 std::vector<std::vector<float>> generate_matrix(int rows, int cols){
@@ -30,8 +28,8 @@ std::vector<float> generate_vector(int n){
     return b;
 }
 
-// calculate the residual
-float calculate_residual(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b){
+// calculate the residual = A * x - b
+float get_residual(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b){
     int n = A.size();
     std::vector<float> Ax(n);
     for (int i = 0; i < n; i++){
@@ -43,11 +41,11 @@ float calculate_residual(std::vector<std::vector<float>> A, std::vector<float> x
     for (int i = 0; i < n; i++){
         residual += (Ax[i] - b[i]) * (Ax[i] - b[i]);
     }
-    return sqrt(residual);
+    return std::sqrt(residual);
 }
 
 
-float calculate_residual_omp(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b) {
+float get_residual_omp(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b) {
     int n = A.size();
     std::vector<float> Ax(n, 0);
     std::vector<float> x_copy = x;  // 创建 x 的副本
@@ -63,7 +61,7 @@ float calculate_residual_omp(std::vector<std::vector<float>> A, std::vector<floa
     for (int i = 0; i < n; i++) {
         residual += (Ax[i] - b[i]) * (Ax[i] - b[i]);
     }
-    return sqrt(residual);
+    return std::sqrt(residual);
 }
 
 // Jacobi method
@@ -83,7 +81,7 @@ std::vector<float> jacobi(std::vector<std::vector<float>> A, std::vector<float> 
             x_new[i] = (b[i] - sum) / A[i][i];
         }
         x = x_new;
-        residual[iter] = calculate_residual(A, x, b);
+        residual[iter] = get_residual(A, x, b);
         if (residual[iter] < tol){
             break;
         }
@@ -91,8 +89,9 @@ std::vector<float> jacobi(std::vector<std::vector<float>> A, std::vector<float> 
     return x;
 }
 
-// Jacobi method with OpenMP, calculate_residual_omp
-std::vector<float> jacobi_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
+// for 1000*1000, get_residual_omp is faster than get_residual: 11.91s vs 2.59ms
+// Jacobi method with cal_omp
+std::vector<float> jacobi_cal_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
     int n = A.size();
     std::vector<float> x(n, 0);
     std::vector<float> x_new(n, 0);
@@ -109,7 +108,7 @@ std::vector<float> jacobi_omp(std::vector<std::vector<float>> A, std::vector<flo
             x_new[i] = (b[i] - sum) / A[i][i];
         }
         x = x_new;
-        residual[iter] = calculate_residual_omp(A, x, b);
+        residual[iter] = get_residual(A, x, b);
         if (residual[iter] < tol){
             break;
         }
@@ -117,7 +116,8 @@ std::vector<float> jacobi_omp(std::vector<std::vector<float>> A, std::vector<flo
     return x;
 }
 
-std::vector<float> jacobi_omp_copy_x(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol) {
+
+std::vector<float> jacobi_cal_omp_copy_x(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol) {
     int n = A.size();
     std::vector<float> x(n, 0);
     std::vector<float> x_new(n, 0);
@@ -135,8 +135,7 @@ std::vector<float> jacobi_omp_copy_x(std::vector<std::vector<float>> A, std::vec
         }
         std::swap(x_curr, x_next);  // 交换指针，无需拷贝
 
-        // 并行化残差计算
-        float residual = calculate_residual(A, x, b);
+        float residual = get_residual(A, x, b);
         if (residual < tol) {
             break;
         }
@@ -145,27 +144,26 @@ std::vector<float> jacobi_omp_copy_x(std::vector<std::vector<float>> A, std::vec
 }
 
 
-// for 1000*1000, calculate_residual_omp is faster than calculate_residual: 11.91s vs 2.59ms
-// Jacobi method with OpenMP with calculate_residual
-std::vector<float> jacobi_omp_1(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol){
+std::vector<float> jacobi_cal_omp_copy_x_res_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol) {
     int n = A.size();
     std::vector<float> x(n, 0);
     std::vector<float> x_new(n, 0);
-    std::vector<float> residual(max_iter, 0);
-    for (int iter = 0; iter < max_iter; iter++){
+    std::vector<float> *x_curr = &x, *x_next = &x_new;
+    for (int iter = 0; iter < max_iter; iter++) {
         #pragma omp parallel for
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             float sum = 0;
-            for (int j = 0; j < n; j++){
-                if (j != i){
-                    sum += A[i][j] * x[j];
+            for (int j = 0; j < n; j++) {
+                if (j != i) {
+                    sum += A[i][j] * (*x_curr)[j];
                 }
             }
-            x_new[i] = (b[i] - sum) / A[i][i];
+            (*x_next)[i] = (b[i] - sum) / A[i][i];
         }
-        x = x_new;
-        residual[iter] = calculate_residual(A, x, b);
-        if (residual[iter] < tol){
+        std::swap(x_curr, x_next);  // 交换指针，无需拷贝
+
+        float residual = get_residual_omp(A, x, b);
+        if (residual < tol) {
             break;
         }
     }
@@ -174,8 +172,14 @@ std::vector<float> jacobi_omp_1(std::vector<std::vector<float>> A, std::vector<f
 
 
 
-int main(){
-    int n = 2000;
+
+int main(int argc, char* argv[]){
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <matrix_size>" << std::endl;
+        return 1;
+    }
+
+    int n = std::stoi(argv[1]);
     int max_iter = 1000;
     float tol = 1e-6;
     auto A = generate_matrix(n, n);
@@ -183,28 +187,33 @@ int main(){
 
     auto start = std::chrono::high_resolution_clock::now();
     auto x = jacobi(A, b, max_iter, tol);
-    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::high_resolution_clock::duration> end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Time taken for Jacobi method: " << elapsed.count() << " s" << std::endl;
 
     start = std::chrono::high_resolution_clock::now();
-    x = jacobi_omp_1(A, b, max_iter, tol);
+    x = jacobi_cal_omp(A, b, max_iter, tol);
     end = std::chrono::high_resolution_clock::now();
     elapsed = end - start;
-    std::cout << "Time taken for Jacobi method with OpenMP with calculate_residual: " << elapsed.count() << " s" << std::endl;
+    std::cout << "Time taken for Jacobi method with OpenMP with cal_omp: " << elapsed.count() << " s" << std::endl;
+
+
+
+    start = std::chrono::high_resolution_clock::now();
+    x = jacobi_cal_omp_copy_x(A, b, max_iter, tol);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Time taken for Jacobi method with OpenMP with cal_omp, copy_x: " << elapsed.count() << " s" << std::endl;
+
+
 
 
     start = std::chrono::high_resolution_clock::now();
-    x = jacobi_omp(A, b, max_iter, tol);
+    x = jacobi_cal_omp_copy_x_res_omp(A, b, max_iter, tol);
     end = std::chrono::high_resolution_clock::now();
     elapsed = end - start;
-    std::cout << "Time taken for Jacobi method with OpenMP with calculate_residual_omp: " << elapsed.count() << " s" << std::endl;
+    std::cout << "Time taken for Jacobi method with OpenMP with cal_omp, copy_x, res_omp: " << elapsed.count() << " s" << std::endl;
 
-    start = std::chrono::high_resolution_clock::now();
-    x = jacobi_omp_copy_x(A, b, max_iter, tol);
-    end = std::chrono::high_resolution_clock::now();
-    elapsed = end - start;
-    std::cout << "Time taken for Jacobi method with OpenMP with calculate_residual_omp and copy_x: " << elapsed.count() << " s" << std::endl;
 
     return 0;
 }

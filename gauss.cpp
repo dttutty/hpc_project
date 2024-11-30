@@ -31,7 +31,7 @@ std::vector<float> generate_vector(int n){
 }
 
 // calculate the residual
-float calculate_residual(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b){
+float get_residual(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b){
     int n = A.size();
     std::vector<float> Ax(n);
     for (int i = 0; i < n; i++){
@@ -63,7 +63,7 @@ std::vector<float> gauss_seidel(std::vector<std::vector<float>> A, std::vector<f
             x_new[i] = (b[i] - sum) / A[i][i];
         }
         x = x_new;
-        residual[iter] = calculate_residual(A, x, b);
+        residual[iter] = get_residual(A, x, b);
         if (residual[iter] < tol){
             break;
         }
@@ -89,7 +89,7 @@ std::vector<float> gauss_seidel_omp(std::vector<std::vector<float>> A, std::vect
             x_new[i] = (b[i] - sum) / A[i][i];
         }
         x = x_new;
-        residual[iter] = calculate_residual(A, x, b);
+        residual[iter] = get_residual(A, x, b);
         if (residual[iter] < tol){
             break;
         }
