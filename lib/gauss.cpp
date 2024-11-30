@@ -66,28 +66,3 @@ std::vector<float> gauss_seidel(std::vector<std::vector<float>> A, std::vector<f
 //     return x;
 // }
 
-int main(int argc, char* argv[]){
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <matrix_size>" << std::endl;
-        return 1;
-    }
-
-    int n = std::stoi(argv[1]);
-    int max_iter = 1000;
-    float tol = 1e-2;
-    float sparse = 0.0;
-    auto A = generate_matrix(n, sparse);
-    auto b = generate_vector(n);
-    auto start = std::chrono::high_resolution_clock::now();
-    auto x = gauss_seidel(A, b, max_iter, tol);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Elapsed time for Gauss-Seidel method: " << elapsed.count() << " s" << std::endl;
-
-    // start = std::chrono::high_resolution_clock::now();
-    // auto x_omp = gauss_seidel_omp(A, b, max_iter, tol);
-    // end = std::chrono::high_resolution_clock::now();
-    // elapsed = end - start;
-    // std::cout << "Elapsed time for Gauss-Seidel method with OpenMP: " << elapsed.count() << " s" << std::endl;
-    return 0;
-}

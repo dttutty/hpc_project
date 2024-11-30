@@ -87,3 +87,20 @@ std::vector<float> generate_vector(int n) {
 
     return b;
 }
+
+
+bool is_diagonally_dominant(const std::vector<std::vector<float>>& A) {
+    int n = A.size();
+    for (int i = 0; i < n; i++) {
+        float sum = 0;
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                sum += std::abs(A[i][j]);
+            }
+        }
+        if (std::abs(A[i][i]) <= sum) {
+            return false;
+        }
+    }
+    return true;
+}
