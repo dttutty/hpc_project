@@ -26,10 +26,7 @@
 //     });
 //     return b;
 // }
-#include <vector>
-#include <random>
-#include <algorithm>
-#include <iostream>
+
 
 // Generate a random matrix with a sparse percentage, ensuring a well-conditioned matrix
 std::vector<std::vector<float>> generate_matrix(int n, float sparse) {
@@ -100,9 +97,9 @@ std::vector<float> generate_vector(int n) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.1, 1.0); // Avoid zero values
 
-    std::generate(b.begin(), b.end(), [&](){
+    std::generate(b.begin(), b.end(), [&]() {
         return dis(gen);
-    });
+        });
 
     return b;
 }

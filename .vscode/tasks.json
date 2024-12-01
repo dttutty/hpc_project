@@ -1,15 +1,15 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
             "label": "C/C++: g++ build active file",
+            "type": "cppbuild",
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}.out"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -25,24 +25,27 @@
         },
         {
             "label": "g++ build",
-            "type": "shell",
-            "command": "g++",
+            "type": "cppbuild",
+            "command": "/usr/bin/g++",
             "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-I./lib",
                 "main.cpp",
                 "lib/gauss.cpp",
                 "lib/jacobi.cpp",
-                "-I./lib",
                 "lib/residual.cpp",
                 "lib/gen_random.cpp",
                 "lib/coloring.cpp",
-                "-o", "main.out",
+                "-o",
+                "main.out",
                 "-fopenmp"
             ],
+            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"],
             "detail": "生成 main.out"
         }
     ],

@@ -2,34 +2,57 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "Set Disassembly Flavor to Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+            ],
+            "preLaunchTask": "C/C++: g++ build active file"
+        },
+        {
             "name": "Debug main.out",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/main.out",
             "args": [
-                "1000", 
-                "0.8"
+                "10000", 
+                "0.99"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
                 }
             ],
-            "miDebuggerPath": "/usr/bin/gdb",  // 如果是 Linux 系统，指定 gdb 的路径
-            "preLaunchTask": "g++ build",  // 在调试之前运行的任务
-            "logging": {
-                "moduleLoad": false,
-                "programOutput": true,
-                "trace": true,
-                "engineLogging": false
-            }
+            "preLaunchTask": "g++ build",
         }
     ]
 }

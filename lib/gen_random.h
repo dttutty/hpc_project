@@ -1,6 +1,8 @@
+#pragma once
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <iostream>
 
 std::vector<std::vector<float>> generate_matrix(int n, float sparse);
 std::vector<float> generate_vector(int n);

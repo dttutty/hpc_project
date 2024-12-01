@@ -1,3 +1,4 @@
+#pragma once
 #include "gen_random.h"
 #include <vector>
 
