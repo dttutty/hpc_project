@@ -66,6 +66,7 @@ Matrix Size,Sparsity,Jacobi OMP Execution Time (ms),Gauss-Seidel Execution Time 
 2000,0.99,68,1181,135
 """
 
+# remove some data points (of Jacobi OMP) of which execution times > 1375ms
 data = """
 Matrix Size,Sparsity,Jacobi OMP Execution Time (ms),Gauss-Seidel Execution Time (ms),Gauss-Seidel OMP Execution Time (ms)
 100,0.1,299,3,18

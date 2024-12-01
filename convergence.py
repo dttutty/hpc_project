@@ -19,14 +19,16 @@ gauss_residuals = [
 plt.figure(figsize=(10, 6))
 
 # Jacobi residuals
-plt.plot(range(len(jacobi_residuals)), jacobi_residuals, marker='o', label='Jacobi')
+plt.plot(range(1, len(jacobi_residuals) + 1), jacobi_residuals, marker='o', label='Jacobi')
 
 # Gauss-Seidel residuals
-plt.plot(range(len(gauss_residuals)), gauss_residuals, marker='s', label='Gauss-Seidel')
-
+plt.plot(range(1, len(gauss_residuals) + 1), gauss_residuals, marker='s', label='Gauss-Seidel')
+# Adding a horizontal line for the residual convergence tolerance
+plt.axhline(y=1e-2, color='r', linestyle='--', linewidth=1)
+plt.text(len(jacobi_residuals) + 1, 1e-2, 'Residual Convergence Tolerance', color='r', fontsize=12, verticalalignment='bottom')
 # Adding labels and title
-plt.title("Convergence of Jacobi and Gauss-Seidel Methods", fontsize=14)
-plt.xlabel("Iteration", fontsize=12)
+plt.title("Convergence of Jacobi and Gauss-Seidel Methods\nResidual Convergence Tolerance: 1-e2", fontsize=14)
+plt.xlabel("?-st update of array x", fontsize=12)
 plt.ylabel("Residual", fontsize=12)
 plt.yscale('log')  # Using a logarithmic scale for better visualization of convergence
 plt.grid(True, linestyle="--", alpha=0.7)
