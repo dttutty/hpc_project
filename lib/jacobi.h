@@ -10,5 +10,4 @@
 #include "print_time.h"
 
 std::vector<float> jacobi(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol);
-std::vector<float> jacobi_cal_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol);
-std::vector<float> jacobi_cal_omp_res_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol);
+std::vector<float> jacobi_omp(std::vector<std::vector<float>> A, std::vector<float> b, int max_iter, float tol);

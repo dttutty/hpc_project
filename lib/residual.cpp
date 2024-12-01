@@ -33,7 +33,7 @@ float get_residual(std::vector<std::vector<float>> A, std::vector<float> x, std:
 float get_residual_omp(std::vector<std::vector<float>> A, std::vector<float> x, std::vector<float> b) {
     int n = A.size();
     std::vector<float> Ax(n, 0);
-    std::vector<float> x_copy = x;  // 创建 x 的副本
+    std::vector<float> x_copy = x;
 #pragma omp parallel for
     for (int i = 0; i < n; i++) {
         float sum = 0;

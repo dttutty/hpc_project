@@ -37,11 +37,14 @@
                 "lib/residual.cpp",
                 "lib/gen_random.cpp",
                 "lib/coloring.cpp",
+                "lib/print_time.cpp",
                 "-o",
                 "main.out",
                 "-fopenmp"
             ],
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": [
+                "$gcc"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true

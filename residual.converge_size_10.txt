@@ -1,0 +1,47 @@
+Is the matrix diagonally dominant? 1
+======================Jacobi======================
+Total iterations: 15
+jacobi residuals 0: 1.37536
+jacobi residuals 1: 0.933051
+jacobi residuals 2: 0.662512
+jacobi residuals 3: 0.465914
+jacobi residuals 4: 0.328243
+jacobi residuals 5: 0.231221
+jacobi residuals 6: 0.162868
+jacobi residuals 7: 0.114725
+jacobi residuals 8: 0.0808123
+jacobi residuals 9: 0.0569242
+jacobi residuals 10: 0.0400974
+jacobi residuals 11: 0.0282446
+jacobi residuals 12: 0.0198954
+jacobi residuals 13: 0.0140143
+jacobi residuals 14: 0.00987166
+jacobi execution time: 0 ms
+===================Gauss-Seidel===================
+Total iterations: 3
+gauss residuals 0: 1.71458
+gauss residuals 1: 1.5948
+gauss residuals 2: 1.28699
+gauss residuals 3: 1.23005
+gauss residuals 4: 1.02065
+gauss residuals 5: 0.70366
+gauss residuals 6: 0.617681
+gauss residuals 7: 0.558495
+gauss residuals 8: 0.558342
+gauss residuals 9: 0.340837
+gauss residuals 10: 0.213406
+gauss residuals 11: 0.0803558
+gauss residuals 12: 0.0663173
+gauss residuals 13: 0.0651182
+gauss residuals 14: 0.0649677
+gauss residuals 15: 0.0646184
+gauss residuals 16: 0.0563178
+gauss residuals 17: 0.0486954
+gauss residuals 18: 0.0436822
+gauss residuals 19: 0.0136707
+gauss residuals 20: 0.0122601
+gauss residuals 21: 0.0119704
+gauss residuals 22: 0.0113947
+gauss residuals 23: 0.0103165
+gauss residuals 24: 0.00935256
+gauss_seidel execution time: 0 ms

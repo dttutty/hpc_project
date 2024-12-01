@@ -54,6 +54,7 @@
         "bit": "cpp",
         "set": "cpp",
         "map": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "list": "cpp"
     }
 }
