@@ -1,8 +1,5 @@
-
-
 #include "coloring.h"
 
-typedef std::vector<int> Partition;
 typedef const std::vector<std::vector<float>> Matrix;
 
 std::vector<std::vector<int>> greedy_coloring(const Matrix& A) {

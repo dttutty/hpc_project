@@ -11,5 +11,4 @@
 typedef std::vector<int> Partition;
 typedef const std::vector<std::vector<float>> Matrix;
 
-// std::vector<Partition> randomized_graph_coloring(const Matrix& A);
 std::vector<std::vector<int>> greedy_coloring(const Matrix& A);
