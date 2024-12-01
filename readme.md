@@ -58,7 +58,7 @@ residual caculation is time_consuming, here is the setting
 # Figure Explanations
 
 - **Note**: All experiment except `convergence` are repeated 3 times to get mean value.
-## 1. Comparision betweenn Jacobi OMP, Gauss-Seidel and Gauss-Seidel OMP[link](result/compare_jacobiomp_gauss_gaussomp)
+## 1. Comparision betweenn Jacobi OMP, Gauss-Seidel and Gauss-Seidel OMP [experiment result folder](result/compare_jacobiomp_gauss_gaussomp)
 ### Normal size figure with all data points   
 ![Normal size figure with all data points](result/compare_jacobiomp_gauss_gaussomp/result.png)
 
@@ -67,7 +67,7 @@ residual caculation is time_consuming, here is the setting
 - **3 Methods**: Jacobi OMP, Gauss-Seidel and Gauss-Seidel OMP
 - **3 Sparsity**: 0.1, 0.9, 0.99
 
-## 2. convergence[link](result/converge)
+## 2. convergence [experiment result folder](result/converge)
 ![alt text](result/converge/result.png)
 
 For Jacobi and Gauss-Seidel methods, the array `x` gets updated at different frequencies. The table below explains the residual update frequency for each method:
@@ -82,26 +82,26 @@ For Jacobi and Gauss-Seidel methods, the array `x` gets updated at different fre
 - **Note**: Residual calculation is resource consuming, so for other experiments, we used a differnt residual calculation frequency mentioned in [Residual Calculation](#Residual-Caculation)
 
 
-## 3. Gauss-Seidel OMP: Partition Number and Execution time with Different Sparsity[link](result/gaussomp_partition_numbers_sparsity)  
+## 3. Gauss-Seidel OMP: Partition Number and Execution time with Different Sparsity [experiment result folder](result/gaussomp_partition_numbers_sparsity)  
 ![alt text](result/gaussomp_partition_numbers_sparsity/result.png)
 
 - **Matrix**: size is 10000*10000
 
 
 
-## 4. Jacobi OMP and Gauss-Seidel OMP Scability Test with Fixed Sparsity: 0.99999[link](result/jacobi_omp_and_gauss_omp_scability_test_on_very_sparse_matrix)
+## 4. Jacobi OMP and Gauss-Seidel OMP Scability Test with Fixed Sparsity: 0.99999 [experiment result folder](result/jacobi_omp_and_gauss_omp_scability_test_on_very_sparse_matrix)
 ![alt text](result/jacobi_omp_and_gauss_omp_scability_test_on_very_sparse_matrix/result.png)
 
 - **Sparsity**: 0.9999
 
-## 5. Jacobi OMP with Different Threads Number[link](result/jacobi_omp_different_threads)
+## 5. Jacobi OMP with Different Threads Number [experiment result folder](result/jacobi_omp_different_threads)
 ![alt text](result/jacobi_omp_different_threads/result.png)
 
 - **Matrix**: different matrix, size is 600*600
 - **Sparsity**: 0, means no sparsity
 
 
-## 6. Jacobi and Jacobi OMP with Different Matrix Size[link](result/jacobi_vs_jacobi_omp_different_size_of_matrix)
+## 6. Jacobi and Jacobi OMP with Different Matrix Size [experiment result folder](result/jacobi_vs_jacobi_omp_different_size_of_matrix)
 ![alt text](result/jacobi_vs_jacobi_omp_different_size_of_matrix/result.png)
 - **Matrix**: use same matrix for 2 methods, size varies
 - **Thread for OMP**: 128
