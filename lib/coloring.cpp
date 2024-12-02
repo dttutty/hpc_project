@@ -10,7 +10,7 @@ std::vector<std::vector<int>> greedy_coloring(const Matrix& A) {
     // Assign the first color to the first vertex
     result[0] = 0;
 
-    // A temporary array to store the is_color_used_by_neighbors
+    // A temporary array to store the availability of colors
     std::vector<bool> is_color_used_by_neighbors(n, false);
 
     // Assign colors to remaining vertices
@@ -23,7 +23,7 @@ std::vector<std::vector<int>> greedy_coloring(const Matrix& A) {
             }
         }
 
-        // Find the first is_color_used_by_neighbors
+        // Find the first available color
         int color_id;
         for (color_id = 0; color_id < n; color_id++) {
             if (!is_color_used_by_neighbors[color_id]) {
@@ -34,7 +34,7 @@ std::vector<std::vector<int>> greedy_coloring(const Matrix& A) {
         // Assign the found color to the vertex
         result[u] = color_id;
 
-        // Reset the is_color_used_by_neighbors array for the next vertex
+        // Reset the values of is_color_used_by_neighbors back to false for the next iteration
         for (int v = 0; v < n; v++) {
             if (A[u][v] != 0 && result[v] != -1) {
                 is_color_used_by_neighbors[result[v]] = false;
