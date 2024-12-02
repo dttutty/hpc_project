@@ -57,12 +57,12 @@ residual caculation is time_consuming, here is the setting
 
 # Figure Explanations
 
-- **Note**: All experiment except `convergence` are repeated 3 times to get mean value.
+- **Note**: All experiment except `convergence` are repeated 5 times to get mean value.
 ## 1. Comparision betweenn Jacobi OMP, Gauss-Seidel and Gauss-Seidel OMP [experiment result folder](result/compare_jacobiomp_gauss_gaussomp)
 ### Normal size figure with all data points   
 ![Normal size figure with all data points](result/compare_jacobiomp_gauss_gaussomp/result.png)
 
-### Enlarge the main part of the figure by removing some data points (of Jacobi OMP) of which execution times > 1500ms   
+### Enlarge the main part of the figure by removing some data points of which execution times > 1500ms   
 ![Enlarge the main part of the figure by removing some data points (of Jacobi OMP) of which execution times > 1500ms](result/compare_jacobiomp_gauss_gaussomp/result_enlarge.png)
 - **3 Methods**: Jacobi OMP, Gauss-Seidel and Gauss-Seidel OMP
 - **3 Sparsity**: 0.1, 0.9, 0.99
