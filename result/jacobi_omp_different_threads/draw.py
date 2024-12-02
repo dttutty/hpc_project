@@ -12,7 +12,7 @@ data = pd.read_csv(file_path)
 df = pd.DataFrame(data)
 
 # 绘制图形
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(3, 6))
 plt.plot(df["OMP_NUM_THREADS"], df["Execution Time (ms)"], marker="o", label="Execution Time")
 plt.title(title, fontsize=14)
 plt.xlabel("OMP_NUM_THREADS", fontsize=12)

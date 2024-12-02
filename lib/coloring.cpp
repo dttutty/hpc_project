@@ -3,46 +3,47 @@
 typedef const std::vector<std::vector<float>> Matrix;
 
 std::vector<std::vector<int>> greedy_coloring(const Matrix& A) {
-    int V = A.size(); // number of vertices
-    std::vector<int> result(V, -1); // color of each vertex, -1 means not colored yet
+    int n = A.size(); // number of vertices
+    std::vector<int> result(n, -1); // color of each vertex, -1 means not colored yet
     std::vector<std::vector<int>> color_groups; // groups of vertices by color
 
     // Assign the first color to the first vertex
     result[0] = 0;
 
-    // A temporary array to store the available colors
-    std::vector<bool> available(V, false);
+    // A temporary array to store the is_color_used_by_neighbors
+    std::vector<bool> is_color_used_by_neighbors(n, false);
 
     // Assign colors to remaining vertices
-    for (int u = 1; u < V; u++) {
+    for (int u = 1; u < n; u++) {
         // Process all adjacent vertices and flag their colors as unavailable
-        for (int v = 0; v < V; v++) {
+        for (int v = 0; v < n; v++) {
             if (A[u][v] != 0 && result[v] != -1) {
-                available[result[v]] = true;
+                auto color_of_v = result[v];
+                is_color_used_by_neighbors[color_of_v] = true;
             }
         }
 
-        // Find the first available color
-        int cr;
-        for (cr = 0; cr < V; cr++) {
-            if (!available[cr]) {
+        // Find the first is_color_used_by_neighbors
+        int color_id;
+        for (color_id = 0; color_id < n; color_id++) {
+            if (!is_color_used_by_neighbors[color_id]) {
                 break;
             }
         }
 
         // Assign the found color to the vertex
-        result[u] = cr;
+        result[u] = color_id;
 
-        // Reset the available array for the next vertex
-        for (int v = 0; v < V; v++) {
+        // Reset the is_color_used_by_neighbors array for the next vertex
+        for (int v = 0; v < n; v++) {
             if (A[u][v] != 0 && result[v] != -1) {
-                available[result[v]] = false;
+                is_color_used_by_neighbors[result[v]] = false;
             }
         }
     }
 
     // Group vertices by color
-    for (int u = 0; u < V; u++) {
+    for (int u = 0; u < n; u++) {
         int color = result[u];
         if (color >= color_groups.size()) {
             color_groups.resize(color + 1);
