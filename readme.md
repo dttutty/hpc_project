@@ -53,7 +53,7 @@ residual caculation is time_consuming, here is the setting
 | jacobi      | every 10 iterations                           |
 | jacobi_omp  | every 10 iterations                           |
 | gauss       | when `(iter * n + i) % 100 == 0`                |
-| gauss_omp   | when `(iter * partitions_size + current_partition_index) == 0` |
+| gauss_omp   | when `(iter * partitions_size + current_partition_index) % 100 == 0` |
 
 # Figure Explanations
 
